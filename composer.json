@@ -1,0 +1,26 @@
+{
+    "name": "Simple example project",
+    "description": "Simple PHP endpoint",
+    "type": "project",
+    "require": {
+        "php": ">=7.1",
+        "silex/silex": "~2.0",
+        "moneyphp/money": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "autoload-dev": {
+        "psr-0": { "": "test/" }
+    },
+    "scripts": {
+        "run": [
+            "echo 'Started web server on http://localhost:8888'",
+            "php -S localhost:8888 -t web"
+        ],
+        "tests-unit" : "./vendor/bin/phpunit --do-not-cache-result --coverage-html ./tests/_output/"
+    }
+}
