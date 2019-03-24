@@ -1,0 +1,19 @@
+<?php
+
+namespace SimpleExampleApp\Domain;
+
+/**
+ * Prices repository interface.
+ */
+interface PricesRepositoryInterface
+{
+    /**
+     * Gets item price in country currency.
+     *
+     * @param int    $itemId
+     * @param string $countryCode
+     *
+     * @return ItemPrice
+     */
+    public function getItemPriceByCountry(int $itemId, string $countryCode): ItemPrice;
+}

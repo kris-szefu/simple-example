@@ -1,26 +1,32 @@
 <?php
 
+use Money\Money;
+use Money\Currency;
 use PHPUnit\Framework\TestCase;
+use SimpleExampleApp\Domain\ItemPrice;
+use SimpleExampleApp\Domain\PricesRepositoryInterface;
 use SimpleExampleApp\Domain\PricesContext;
 
-class PricesContextTest extends TestCase
+class PricesrepostioryTest extends TestCase
 {
+    private $itemPrice = 17;
+
     /**
      * @dataProvider itemsProvider
      */
-    public function testProperGetPriceResponse(int $itemId, string $countryCode)
+    public function testProperGetPrice(int $itemId, string $countryCode)
     {
-        $expectedResponse = [
+        $expected = [
             'itemId' => $itemId,
-            'countryCode' => $countryCode,
             'price' => 17,
-            'currency' => 'Onions',
+            'currency' => $countryCode,
         ];
-        $controller = new PricesContext();
+        $repostioryProhpecy = $this->setupRepositoryProphecy($itemId, $countryCode);
+        $controller = new PricesContext($repostioryProhpecy);
 
-        $response = $controller->getItemPrice($itemId, $countryCode);
+        $returned = $controller->getItemPrice($itemId, $countryCode);
 
-        $this->assertEquals($expectedResponse, $response, 'Wrong content');
+        $this->assertEquals($expected, $returned, 'Wrong content');
     }
 
     /**
@@ -35,5 +41,15 @@ class PricesContextTest extends TestCase
             [1, 'ZA'],
             [21, 'PL'],
         ];
+    }
+
+    private function setupRepositoryProphecy(int $itemId, string $countryCode)
+    {
+        $price = new Money($this->itemPrice, new Currency($countryCode));
+        $itemPrice = new ItemPrice($itemId, $price);
+        $repostiory = $this->prophesize(PricesRepositoryInterface::class);
+        $repostiory->getItemPriceByCountry($itemId, $countryCode)->willReturn($itemPrice)->shouldBeCalled();
+
+        return $repostiory->reveal();
     }
 }

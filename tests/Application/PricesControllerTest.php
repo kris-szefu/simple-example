@@ -13,7 +13,6 @@ class PricesControllerTest extends TestCase
     {
         $expectedResponse = [
             'itemId' => $this->itemId,
-            'countryCode' => $this->countryCode,
             'price' => 17,
             'currency' => 'Onions',
         ];
@@ -35,7 +34,6 @@ class PricesControllerTest extends TestCase
     {
         $mockedResponse = [
             'itemId' => $this->itemId,
-            'countryCode' => $this->countryCode,
             'price' => 17,
             'currency' => 'Onions',
         ];
