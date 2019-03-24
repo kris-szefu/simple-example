@@ -3,15 +3,16 @@
     "description": "Simple PHP endpoint",
     "type": "project",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "silex/silex": "~2.0",
+        "php-di/silex-bridge": "2.0.0-beta1",
         "moneyphp/money": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": {"SimpleExampleApp\\" : "src/"}
     },
     "autoload-dev": {
         "psr-0": { "": "test/" }
