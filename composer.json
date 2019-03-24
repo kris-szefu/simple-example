@@ -19,8 +19,12 @@
     },
     "scripts": {
         "run": [
+            "echo 'Started web server on http://localhost:8083'",
+            "php -S localhost:8083 web/index.php"
+        ],
+        "run-dev": [
             "echo 'Started web server on http://localhost:8888'",
-            "php -S localhost:8888 -t web"
+            "php -S localhost:8888 web/index_dev.php"
         ],
         "tests-unit" : "./vendor/bin/phpunit --do-not-cache-result --coverage-html ./tests/_output/"
     }
