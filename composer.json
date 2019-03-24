@@ -26,6 +26,6 @@
             "echo 'Started web server on http://localhost:8888'",
             "php -S localhost:8888 web/index_dev.php"
         ],
-        "tests-unit" : "./vendor/bin/phpunit --do-not-cache-result --coverage-html ./tests/_output/"
+        "tests-unit" : "./vendor/bin/phpunit --do-not-cache-result --coverage-html ./coverage/"
     }
 }

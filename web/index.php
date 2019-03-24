@@ -1,10 +1,12 @@
 <?php
 
-use SimpleExampleApp\Application\PricesController;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
-$app = new DI\Bridge\Silex\Application();
+use SimpleExampleApp\Application\PricesController;
+use SimpleExampleApp\Application\DependencyContainer;
+
+$containerBuilder = new DependencyContainer();
+$app = new DI\Bridge\Silex\Application($containerBuilder);
 
 $app->get('/items/{itemId}/price/{countryCode}/', [PricesController::class, 'getItemPrice']);
 

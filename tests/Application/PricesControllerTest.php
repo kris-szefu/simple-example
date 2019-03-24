@@ -2,24 +2,26 @@
 
 use PHPUnit\Framework\TestCase;
 use SimpleExampleApp\Application\PricesController;
+use SimpleExampleApp\Domain\PricesContextInterface;
 
 class PricesControllerTest extends TestCase
 {
-    /**
-     * @dataProvider itemsProvider
-     */
-    public function testProperGetPriceResponse(int $itemId, string $countryCode)
+    private $itemId = 17;
+    private $countryCode = 'PL';
+
+    public function testProperGetPriceResponse()
     {
         $expectedResponse = [
-            'itemId' => $itemId,
-            'countryCode' => $countryCode,
+            'itemId' => $this->itemId,
+            'countryCode' => $this->countryCode,
             'price' => 17,
             'currency' => 'Onions',
         ];
         $expectedCode = 200;
-        $controller = new PricesController();
+        $contextProphecy = $this->setupContextProphecy($this->itemId, $this->countryCode);
+        $controller = new PricesController($contextProphecy);
 
-        $response = $controller->getItemPrice($itemId, $countryCode);
+        $response = $controller->getItemPrice($this->itemId, $this->countryCode);
 
         $this->assertEquals($expectedCode, $response->getStatusCode(), 'Wrong Code');
         $this->assertEquals(
@@ -29,17 +31,17 @@ class PricesControllerTest extends TestCase
         );
     }
 
-    /**
-     * Item prices case provider.
-     * Example: itemId, countryCode.
-     */
-    public function itemsProvider()
+    private function setupContextProphecy(int $itemId, string $countryCode)
     {
-        return [
-            [12, 'DE'],
-            [17, 'DE'],
-            [1, 'ZA'],
-            [21, 'PL'],
+        $mockedResponse = [
+            'itemId' => $this->itemId,
+            'countryCode' => $this->countryCode,
+            'price' => 17,
+            'currency' => 'Onions',
         ];
+        $context = $this->prophesize(PricesContextInterface::class);
+        $context->getItemPrice($itemId, $countryCode)->willReturn($mockedResponse)->shouldBeCalled();
+
+        return $context->reveal();
     }
 }
