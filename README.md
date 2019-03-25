@@ -21,6 +21,13 @@ To run it in dev mode execute
 composer run-dev
 ```
 
+### Endpoint
+
+Service should have one avaiable endpoint under
+```
+/items/{itemId}/price/{countryCode}/
+```
+
 ## Unit tests
 
 To run simple unit tests you need to run

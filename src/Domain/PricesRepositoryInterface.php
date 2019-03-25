@@ -13,6 +13,8 @@ interface PricesRepositoryInterface
      * @param int    $itemId
      * @param string $countryCode
      *
+     * @throws ItemNotFoundException
+     *
      * @return ItemPrice
      */
     public function getItemPriceByCountry(int $itemId, string $countryCode): ItemPrice;

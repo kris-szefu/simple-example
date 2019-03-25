@@ -14,6 +14,8 @@ class RandomPricesRepository implements PricesRepositoryInterface
 {
     /**
      * {@inheritdoc}
+     *
+     * There is no error thrown as it is mock repository.
      */
     public function getItemPriceByCountry(int $itemId, string $countryCode): ItemPrice
     {

@@ -39,6 +39,10 @@ class PricesController
     {
         $priceObject = $this->context->getItemPrice($itemId, $countryCode);
 
+        if (empty($priceObject)) {
+            return new JsonResponse('Item not found', 404);
+        }
+
         return new JsonResponse($priceObject);
     }
 }

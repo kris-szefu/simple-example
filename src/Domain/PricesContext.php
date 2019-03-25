@@ -29,8 +29,12 @@ class PricesContext implements PricesContextInterface
      */
     public function getItemPrice(int $itemId, string $countryCode): array
     {
-        $itemPrice = $this->repository->getItemPriceByCountry($itemId, $countryCode);
+        try {
+            $itemPrice = $this->repository->getItemPriceByCountry($itemId, $countryCode);
 
-        return $itemPrice->jsonSerialize();
+            return $itemPrice->jsonSerialize();
+        } catch (ItemNotFoundException $exception) {
+            return [];
+        }
     }
 }
