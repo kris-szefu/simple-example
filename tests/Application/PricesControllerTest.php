@@ -17,7 +17,7 @@ class PricesControllerTest extends TestCase
             'currency' => 'Onions',
         ];
         $expectedCode = 200;
-        $contextProphecy = $this->setupContextProphecy($this->itemId, $this->countryCode);
+        $contextProphecy = $this->setupContextProphecy($this->itemId, $this->countryCode, $expectedResponse);
         $controller = new PricesController($contextProphecy);
 
         $response = $controller->getItemPrice($this->itemId, $this->countryCode);
@@ -30,16 +30,28 @@ class PricesControllerTest extends TestCase
         );
     }
 
-    private function setupContextProphecy(int $itemId, string $countryCode)
+    private function setupContextProphecy(int $itemId, string $countryCode, array $mockedResponse = [])
     {
-        $mockedResponse = [
-            'itemId' => $this->itemId,
-            'price' => 17,
-            'currency' => 'Onions',
-        ];
         $context = $this->prophesize(PricesContextInterface::class);
         $context->getItemPrice($itemId, $countryCode)->willReturn($mockedResponse)->shouldBeCalled();
 
         return $context->reveal();
+    }
+
+    public function testProperNotFoundResponse()
+    {
+        $expectedResponse = 'Item not found';
+        $expectedCode = 404;
+        $contextProphecy = $this->setupContextProphecy($this->itemId, $this->countryCode);
+        $controller = new PricesController($contextProphecy);
+
+        $response = $controller->getItemPrice($this->itemId, $this->countryCode);
+
+        $this->assertEquals($expectedCode, $response->getStatusCode(), 'Wrong Code');
+        $this->assertEquals(
+            json_encode($expectedResponse),
+            $response->getContent(),
+            'Wrong content'
+        );
     }
 }
