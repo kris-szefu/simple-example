@@ -13,10 +13,10 @@ suites:
                     app: 'tests/apiApp.php'
 
 paths:
-    tests: tests\api
-    output: tests\api/_output
-    data: tests\api/_data
-    support: tests\api/_support
+    tests: tests/api
+    output: tests/api/_output
+    data: tests/api/_data
+    support: tests/api/_support
 
 settings:
     shuffle: false
