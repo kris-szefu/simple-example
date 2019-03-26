@@ -36,3 +36,10 @@ composer tests-unit
 ```
 
 Code coverage would be avaiable under ./coverage/ directory
+
+## Api tets 
+
+To run simple unit tests you need to run
+```
+composer tests-api
+```
