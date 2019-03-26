@@ -35,6 +35,8 @@ class PricesContext implements PricesContextInterface
             return $itemPrice->jsonSerialize();
         } catch (ItemNotFoundException $exception) {
             return [];
+        } catch (EmptyCurrenctyException $exception) {
+            return [];
         }
     }
 }

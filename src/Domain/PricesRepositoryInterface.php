@@ -14,6 +14,7 @@ interface PricesRepositoryInterface
      * @param string $countryCode
      *
      * @throws ItemNotFoundException
+     * @throws EmptyCurrenctyException
      *
      * @return ItemPrice
      */

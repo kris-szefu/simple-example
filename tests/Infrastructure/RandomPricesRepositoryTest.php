@@ -18,4 +18,14 @@ class RandomPricesRepositoryTest extends TestCase
         $this->assertEquals($this->itemId, $returned['itemId'], 'Wrong id');
         $this->assertEquals($this->currency, $returned['currency'], 'Wrong currency');
     }
+
+    /**
+     * @expectedException \SimpleExampleApp\Domain\EmptyCurrenctyException
+     */
+    public function testErrorEmptyCurrency()
+    {
+        $repository = new RandomPricesRepository();
+
+        $repository->getItemPriceByCountry($this->itemId, '');
+    }
 }
